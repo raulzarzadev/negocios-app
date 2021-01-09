@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Button, CircularProgress, TextField } from "@material-ui/core";
 
 export default function WritePassForm({
@@ -9,7 +9,7 @@ export default function WritePassForm({
 }) {
   console.log(state);
   const passwordEqual = !(state.password === state.passwordConfirm);
-  const dirty = state.password !== ""
+  const dirty = state.password !== "";
 
   return (
     <form

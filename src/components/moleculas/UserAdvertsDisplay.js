@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function UserAdvertsDisplay({
-  adverts,
+  adverts = [],
   title,
   noAdvertsTitle,
   publishArea,
@@ -31,8 +31,8 @@ export default function UserAdvertsDisplay({
         {!!adverts.length ? (
           <>
             {adverts.map((advert) => (
-              <Box m={1} item key={advert._id} width={200}>
-                <AdvertCard publishArea={publishArea} advert={advert} admin />
+              <Box m={1} item key={advert?._id} width={200}>
+                <AdvertCard publishArea={publishArea} advert={advert} />
               </Box>
             ))}
           </>

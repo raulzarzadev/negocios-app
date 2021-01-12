@@ -26,7 +26,13 @@ import MyModal from "./MyModal";
 import { CHIP_LABELS } from "../../HardData/CHIPS_LABELS";
 import ContactLink from "./ContactLink";
 import ToPublishAdvert from "../moleculas/ToPublishAdvert";
-import { deleteAdvert, updateAdvert } from "../../utils/adverts";
+import {
+  deleteAdvert,
+  saveFavoriteAdvert,
+  updateAdvert,
+} from "../../utils/adverts";
+import { useUser } from "../../context/userContext";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -81,7 +87,8 @@ export default function AdvertCart({
     _id,
     contacts,
   } = advert;
-
+  
+  const { user } = useUser();
   const classes = useStyles();
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);
@@ -126,14 +133,18 @@ export default function AdvertCart({
       isPublished: false,
       publishedOn: [],
     })
-      .then((res) => {
-        
-      })
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSaveAdvert = () => {
+    saveFavoriteAdvert(user._id, advert._id)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -153,7 +164,7 @@ export default function AdvertCart({
               </Tooltip>
             ) : (
               <Tooltip title="Guardar">
-                <IconButton>
+                <IconButton onClick={handleSaveAdvert}>
                   <BookmarkBorderIcon />
                 </IconButton>
               </Tooltip>

@@ -22,10 +22,9 @@ export function UserProvider(props) {
 
   useEffect(() => {
     if (token) {
-      console.log("token");
       try {
         const { id } = decode(token);
-        console.log(id);
+        //console.log(id);
         getUserAndAdverts(id)
           .then((res) => {
             setUser(res);
@@ -137,7 +136,7 @@ export function UserProvider(props) {
   }, [response, isLogged, user, loading]);
 
   //console.log(loadingUser);
-  console.log("user", user);
+  //console.log("user", user);
 
   return <UserContext.Provider value={value} {...props} />;
 }

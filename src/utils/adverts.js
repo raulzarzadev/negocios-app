@@ -42,3 +42,13 @@ export function getAdvertsByBarrio(barrio) {
 export function getAllBarrios() {
   return axios.get(`${URL}/barrios`);
 }
+
+export function getFavoriteAdverts(userId) {
+  return axios.get(`${URL}/adverts/favorite/${userId}`);
+
+  //encontrar todos {user:"#", savedAdverts:[{}]}
+}
+
+export function saveFavoriteAdvert(userId, advertId) {
+  return axios.post(`${URL}/adverts/favorite/${userId}`, { advertId });
+}

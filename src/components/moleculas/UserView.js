@@ -3,18 +3,29 @@ import { Box, Typography } from "@material-ui/core";
 import UserAdvertsDisplay from "../moleculas/UserAdvertsDisplay";
 import MyButton from "../atomos/MyButton";
 import MyLink from "../atomos/MyLink";
+import { getFavoriteAdverts } from "../../utils/adverts";
 
 export default function UserView({ user }) {
   const [adverts] = useState(user.adverts || []);
   const [publishAdverts, setPublishedAdverts] = useState([]);
-  console.log(user);
+  const [savedAverts, setSavedAverts] = useState([]);
+
+  useEffect(() => {
+    getFavoriteAdverts(user._id)
+      .then(({ data }) => {
+        setSavedAverts(data.adverts);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   useEffect(() => {
     setPublishedAdverts(
       adverts.filter((advert) => advert.isPublished === true)
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(savedAverts);
 
   return (
     <Box my={3}>
@@ -38,15 +49,20 @@ export default function UserView({ user }) {
       </Box>
 
       <UserAdvertsDisplay
-        title="Anuncios Publicados"
-        noAdvertsTitle="No hay anuncios publicados aún"
-        adverts={publishAdverts}
-        publishArea={true}
+        title="Anuncios Guardados"
+        noAdvertsTitle="Aún no has GUARDADO aununcios."
+        adverts={savedAverts}
       />
 
       <UserAdvertsDisplay
+        title="Anuncios Publicados"
+        noAdvertsTitle="No hay anuncios PUBLICADOS aún."
+        adverts={publishAdverts}
+        publishArea={true}
+      />
+      <UserAdvertsDisplay
         title="Anuncios Creados"
-        noAdvertsTitle="No has creado anuncios aún"
+        noAdvertsTitle="No has CREADO anuncios aún."
         adverts={adverts}
       />
     </Box>

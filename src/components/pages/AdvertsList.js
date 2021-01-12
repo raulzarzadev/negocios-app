@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import Navigation from "../Navigation";
 import AdvertCard from "../atomos/AdvertCard";
 import Loading from "../atomos/Loading";
 import { getAdvertsByBarrio } from "../../utils/adverts";
@@ -35,16 +34,13 @@ export default function AdvertsList() {
       });
   }, [shortName]);
 
-  console.log(adverts);
-
   if (failBarrio) return <NotFound errorMessage="Este lugar aun no existe" />;
   if (loading) return <Loading />;
 
   return (
     <>
-      <Navigation />
       <h3>{barrio.name}</h3>
-      <p>{barrio.state}</p>
+      <p>{barrio.stateData?.label}</p>
       {adverts.length > 0 ? (
         <Grid container spacing={1}>
           {adverts.map((advert) => (

@@ -52,3 +52,7 @@ export function getFavoriteAdverts(userId) {
 export function saveFavoriteAdvert(userId, advertId) {
   return axios.post(`${URL}/adverts/favorite/${userId}`, { advertId });
 }
+
+export function getFavoritesList(userId) {
+  return axios.get(`${URL}/adverts/favoritesList/${userId}`);
+}

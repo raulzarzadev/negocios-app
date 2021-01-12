@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -87,8 +87,8 @@ export default function AdvertCart({
     _id,
     contacts,
   } = advert;
-  
-  const { user } = useUser();
+
+  const { user, favoriteList = [] } = useUser();
   const classes = useStyles();
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);
@@ -141,11 +141,21 @@ export default function AdvertCart({
     setAnchorEl(null);
   };
 
-  const handleSaveAdvert = () => {
+  const handleSaveFavorite = () => {
     saveFavoriteAdvert(user._id, advert._id)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+
+  const handleDeleteFavorite = () => {
+    console.log("delete favorite");
+  };
+
+  const [savedAsFavorite, setSavedAsFavorite] = useState(false);
+
+  useEffect(() => {
+    setSavedAsFavorite(favoriteList?.includes(advert._id));
+  }, [favoriteList, advert._id]);
 
   return (
     <>
@@ -162,9 +172,13 @@ export default function AdvertCart({
                   <MoreVertIcon />
                 </IconButton>
               </Tooltip>
+            ) : savedAsFavorite ? (
+              <Tooltip title="Borrar de favoritos">
+                <IconButton onClick={handleDeleteFavorite}>X</IconButton>
+              </Tooltip>
             ) : (
-              <Tooltip title="Guardar">
-                <IconButton onClick={handleSaveAdvert}>
+              <Tooltip title="Guardar como favorito">
+                <IconButton onClick={handleSaveFavorite}>
                   <BookmarkBorderIcon />
                 </IconButton>
               </Tooltip>

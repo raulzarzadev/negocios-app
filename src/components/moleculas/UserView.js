@@ -16,7 +16,7 @@ export default function UserView({ user }) {
         setSavedAverts(data.adverts);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [user._id]);
 
   useEffect(() => {
     setPublishedAdverts(

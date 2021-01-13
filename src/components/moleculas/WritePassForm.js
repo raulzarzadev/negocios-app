@@ -5,10 +5,10 @@ export default function WritePassForm({
   handleChange,
   handleSubmit,
   loading,
-  state,
+  state = {},
 }) {
   console.log(state);
-  const passwordEqual = !(state.password === state.passwordConfirm);
+  const passwordEqual = !(state?.password === state?.passwordConfirm);
   const dirty = state.password !== "";
 
   return (

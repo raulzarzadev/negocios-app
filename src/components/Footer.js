@@ -31,8 +31,8 @@ export default function Footer() {
       </div>
       <div>
         Una app de{" "}
-        <a href="https://www.raulzarza.com/developer" target="__blank">
-          raulzarza.com
+        <a href="https://www.raulzarza.com" target="__blank">
+          Raúl Zarza
         </a>
       </div>
     </div>

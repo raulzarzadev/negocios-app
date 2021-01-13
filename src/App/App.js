@@ -23,13 +23,16 @@ import RecoverPassword from "../components/pages/userPages/RecoverPassword";
 import SignIn from "../components/pages/userPages/SignIn";
 import SignUp from "../components/pages/userPages/SignUp";
 import FinishSignup from "../components/pages/userPages/FinishSignup";
-import Profile from '../components/pages/userPages/Profile'
+import Profile from "../components/pages/userPages/Profile";
+import { FavoriteProvider } from "../context/favoritContext";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
   <MuiThemeProvider theme={newTheme}>
-    <UserProvider>
-      <App></App>
-    </UserProvider>
+    <FavoriteProvider>
+      <UserProvider>
+        <App></App>
+      </UserProvider>
+    </FavoriteProvider>
   </MuiThemeProvider>
 );
 

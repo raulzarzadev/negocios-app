@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useState, useEffect, useMemo } from "react";
 import { getToken, setToken, removeToken } from "../utils/token";
 import { decode } from "jsonwebtoken";
-import { getAdvertsByOwner, getFavoritesList } from "../utils/adverts";
+import { getAdvertsByOwner } from "../utils/adverts";
 import { SIGNUP_SERVICE } from "../URLS";
 
 const UserContext = React.createContext();
@@ -20,16 +20,12 @@ export function UserProvider(props) {
     "access-token": token,
   };
 
-  const [favoriteList, setFavoriteList] = useState([]);
-
   useEffect(() => {
     if (token) {
       try {
         const { id } = decode(token);
         //console.log(id);
-        getFavoritesList(id)
-          .then(({ data }) => setFavoriteList(data.favoriteAdverts))
-          .catch((err) => console.log(err));
+
         getUserAndAdverts(id)
           .then((res) => {
             setUser(res);
@@ -135,10 +131,9 @@ export function UserProvider(props) {
       isLogged,
       user,
       loading,
-      favoriteList,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response, isLogged, user, loading, favoriteList]);
+  }, [response, isLogged, user, loading]);
 
   //console.log(loadingUser);
   //console.log("user", user);

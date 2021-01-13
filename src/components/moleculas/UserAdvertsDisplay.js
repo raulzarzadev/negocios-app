@@ -22,6 +22,7 @@ export default function UserAdvertsDisplay({
   title,
   noAdvertsTitle,
   publishArea,
+  admin
 }) {
   const classes = useStyles();
   return (
@@ -32,7 +33,7 @@ export default function UserAdvertsDisplay({
           <>
             {adverts.map((advert) => (
               <Box m={1} item key={advert?._id} width={200}>
-                <AdvertCard publishArea={publishArea} advert={advert} />
+                <AdvertCard publishArea={publishArea} advert={advert} admin={admin}/>
               </Box>
             ))}
           </>

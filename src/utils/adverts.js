@@ -43,7 +43,7 @@ export function getAllBarrios() {
   return axios.get(`${URL}/barrios`);
 }
 
-export function getFavoriteAdverts(userId) {
+export function getFavoriteAds(userId) {
   return axios.get(`${URL}/adverts/favorite/${userId}`);
 
   //encontrar todos {user:"#", savedAdverts:[{}]}
@@ -55,4 +55,8 @@ export function saveFavoriteAdvert(userId, advertId) {
 
 export function getFavoritesList(userId) {
   return axios.get(`${URL}/adverts/favoritesList/${userId}`);
+}
+
+export function deleteFavoriteAdvert(userId, advertId) {
+  return axios.put(`${URL}/adverts/favorite/${userId}`, { advertId });
 }

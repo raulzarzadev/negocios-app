@@ -26,12 +26,8 @@ import MyModal from "./MyModal";
 import { CHIP_LABELS } from "../../HardData/CHIPS_LABELS";
 import ContactLink from "./ContactLink";
 import ToPublishAdvert from "../moleculas/ToPublishAdvert";
-import {
-  deleteAdvert,
-  saveFavoriteAdvert,
-  updateAdvert,
-} from "../../utils/adverts";
-import { useUser } from "../../context/userContext";
+import { deleteAdvert, updateAdvert } from "../../utils/adverts";
+import { useFavorites } from "../../context/favoritContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,7 +84,7 @@ export default function AdvertCart({
     contacts,
   } = advert;
 
-  const { user, favoriteList = [] } = useUser();
+  const { favoriteList, addFavorite, removeFavorite } = useFavorites();
   const classes = useStyles();
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);
@@ -133,7 +129,7 @@ export default function AdvertCart({
       isPublished: false,
       publishedOn: [],
     })
-      .then((res) => {})
+      .then((res) => (window.location.href = "/perfil"))
       .catch((err) => console.log(err));
   };
 
@@ -142,13 +138,11 @@ export default function AdvertCart({
   };
 
   const handleSaveFavorite = () => {
-    saveFavoriteAdvert(user._id, advert._id)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    addFavorite(advert._id);
   };
 
   const handleDeleteFavorite = () => {
-    console.log("delete favorite");
+    removeFavorite(advert._id);
   };
 
   const [savedAsFavorite, setSavedAsFavorite] = useState(false);

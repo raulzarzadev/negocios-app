@@ -8,9 +8,7 @@ import Loading from "../../atomos/Loading";
 
 export default function SignIn() {
   const { login, response, loading, isLogged } = useUser();
-  console.log(isLogged);
-  console.log(loading);
-  console.log(response)
+
   if (isLogged) return <Redirect to="/perfil" />;
   if (loading) return <Loading />;
 

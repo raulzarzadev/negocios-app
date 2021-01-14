@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function StateList({ barrios }) {
+  //console.log(barrios);
   const classes = useStyles();
   return (
     <div>

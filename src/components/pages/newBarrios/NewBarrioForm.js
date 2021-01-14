@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewBarrioForm({ onSubmit }) {
+export default function NewBarrioForm({ alert, handleSubmit }) {
   const classes = useStyles();
   const [statesList] = React.useState(ESTADOS_LABEL_MX);
   const [activeStep, setActiveStep] = React.useState(0);
@@ -57,7 +57,6 @@ export default function NewBarrioForm({ onSubmit }) {
       stateData: statesList.find((state) => state.value === e.target.value),
     });
   };
-  console.log(form);
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -85,6 +84,7 @@ export default function NewBarrioForm({ onSubmit }) {
 
   return (
     <div className={classes.newBarrioContent}>
+      {alert}
       <Box m={1} textAlign="start">
         <MyBackButton />
       </Box>
@@ -102,7 +102,7 @@ export default function NewBarrioForm({ onSubmit }) {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            onSubmit(form);
+            handleSubmit(form);
           }}
           autoComplete="on"
         >

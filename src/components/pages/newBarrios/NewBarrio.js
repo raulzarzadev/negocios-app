@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import Alert from "@material-ui/lab/Alert";
 
 import NewBarrioForm from "./NewBarrioForm";
 
-import url from "../../../url/url";
-import Axios from "axios";
-import NoLoggedView from "../../NoLoggedView";
-import { useUser } from "../../../context/userContext";
-
-
+import { createNewBarrio } from "../../../utils/barrios";
+import Alert from "../../Alert";
 
 export default function NewBarrio(props) {
-  const { isLogged } = useUser();
   const token = localStorage.getItem("access-token");
 
   const [status, setStatus] = useState({
@@ -20,15 +14,23 @@ export default function NewBarrio(props) {
     error: null,
   });
 
-  async function onSubmit(data) {
-    console.log(data);
+  const [alert, setAlert] = useState(null);
+
+  async function handleSubmit(newBarrio) {
+    console.log(newBarrio);
 
     setStatus({
       ...status,
       loading: true,
     });
     console.log(token);
-    try {
+    createNewBarrio(newBarrio)
+      .then(({ data }) => {
+        setAlert(<Alert message="Nuevo Barrio Creado" severity="success" />);
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+    /*  try {
       let config = {
         method: "POST",
         headers: {
@@ -60,22 +62,14 @@ export default function NewBarrio(props) {
      
     } catch (error) {
       console.log("error capturado", error);
-
-      setStatus({
+ */
+    /*    setStatus({
         loading: false,
         messageError: <Alert severity="error">Error de connección.</Alert>,
         error,
       });
-    }
+    } */
   }
 
-  return (
-    <>
-      {isLogged ? (
-        <NewBarrioForm onSubmit={onSubmit} />
-      ) : (
-        <NoLoggedView text="Nuevo barrio" />
-      )}
-    </>
-  );
+  return <NewBarrioForm alert={alert} handleSubmit={handleSubmit} />;
 }

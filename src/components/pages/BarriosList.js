@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import StateList from "../pages/StateList";
 import Loading from "../atomos/Loading";
 import { getAllBarrios, getPublishedAdverts } from "../../utils/adverts";
-import { includes } from "../../helpres";
 
 export default function BarriosList() {
   const [loading, setLoading] = useState(true);
   const [barrios, setBarrios] = useState([]);
-  const statesList = [];
 
   useEffect(() => {
     getAllBarrios()
@@ -24,12 +22,14 @@ export default function BarriosList() {
       .catch((err) => console.log(err));
   }, []);
 
-  barrios?.map(
+  let statesList = [];
+  let auxList = [];
+  barrios.map(
     (barrio) =>
-      !includes(statesList, barrio.stateData) &&
+      !auxList.includes(barrio.state) &&
+      auxList.push(barrio.state) &&
       statesList.push(barrio.stateData)
   );
-  //console.log(statesList);
 
   const barriosByState = statesList.map((state) => {
     let barriosByState = [];

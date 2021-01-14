@@ -32,9 +32,13 @@ export function UserProvider(props) {
             setIsLogged(true);
             setLoading(false);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            setLoading(false);
+            console.log(err);
+          });
       } catch (error) {
         signout();
+        setLoading(false);
       }
     } else {
       setLoading(false);
@@ -49,7 +53,7 @@ export function UserProvider(props) {
     } = await Axios.get(`${url}/${id}`);
     const {
       data: { adverts },
-    } = await getAdvertsByOwner(user._id);
+    } = await getAdvertsByOwner(user?._id);
     return { ...user, adverts };
   }
 

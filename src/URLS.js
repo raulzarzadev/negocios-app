@@ -8,6 +8,7 @@ export const BACKEND_URL = process.env.REACT_APP_SERVICES_HOST;
 export const SIGNUP_SERVICE = process.env.REACT_APP_SIGNUP_SERVICE;
 export const UPLOAD_IMAGE_SERVICE = process.env.REACT_APP_UPLOAD_IMAGE_SERVICE;
 
-console.log("Ad&B", BACKEND_URL);
-console.log("Sign", SIGNUP_SERVICE);
-console.log("UpImg", UPLOAD_IMAGE_SERVICE);
+//console.log("Ad&B", BACKEND_URL);
+//console.log("Sign", SIGNUP_SERVICE);
+//console.log("UpImg", UPLOAD_IMAGE_SERVICE);
+//

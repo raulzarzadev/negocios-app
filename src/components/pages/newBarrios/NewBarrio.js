@@ -5,71 +5,31 @@ import NewBarrioForm from "./NewBarrioForm";
 import { createNewBarrio } from "../../../utils/barrios";
 import Alert from "../../Alert";
 
-export default function NewBarrio(props) {
-  const token = localStorage.getItem("access-token");
-
-  const [status, setStatus] = useState({
-    loading: false,
-    messageError: "",
-    error: null,
-  });
-
+export default function NewBarrio() {
+  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
 
   async function handleSubmit(newBarrio) {
-    console.log(newBarrio);
-
-    setStatus({
-      ...status,
-      loading: true,
-    });
-    console.log(token);
+    setLoading(true);
     createNewBarrio(newBarrio)
       .then(({ data }) => {
         setAlert(<Alert message="Nuevo Barrio Creado" severity="success" />);
-        console.log(data);
+        setTimeout(() => {
+          setLoading(false);
+          window.location.href = "/";
+        }, 2000);
       })
-      .catch((err) => console.log(err));
-    /*  try {
-      let config = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "access-token": token,
-        },
-        data,
-      };
-      console.log("peticion enviada");
-      let res = await Axios(`${url}/barrios`, config);
-      console.log("peticion recibida", res);
-      if (!res.data.ok) {
-        console.log("peticion rechazada", res);
-        setStatus({
-          status,
-          loading: false,
-          messageError: <Alert severity="error">{res.data.message} </Alert>,
-        });
-      } else {
-        console.log("peticion aceptada recuperando token", res.data);
-        //setToken(res.da)
-        setStatus({
-          status,
-          loading: false,
-          messageError: <Alert severity="success">{res.data.message} </Alert>,
-        });
-      }
-     
-    } catch (error) {
-      console.log("error capturado", error);
- */
-    /*    setStatus({
-        loading: false,
-        messageError: <Alert severity="error">Error de connección.</Alert>,
-        error,
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
       });
-    } */
   }
 
-  return <NewBarrioForm alert={alert} handleSubmit={handleSubmit} />;
+  return (
+    <NewBarrioForm
+      alert={alert}
+      handleSubmit={handleSubmit}
+      loading={loading}
+    />
+  );
 }

@@ -1,6 +1,4 @@
 import React from "react";
-
-import FormControl from "@material-ui/core/FormControl";
 import {
   Button,
   Grid,
@@ -12,26 +10,22 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
 import { ESTADOS_LABEL_MX } from "../../../HardData/ESTADOS_MX";
-import MySelectInput from "../../atomos/MySelectInput";
 import MyBackButton from "../../atomos/MyBackButton";
+import MainInput from "../../atomos/MainInput";
+import MyButton from "../../atomos/MyButton";
 
 const useStyles = makeStyles((theme) => ({
+  inputsGrid: {
+    marginTop: theme.spacing(6),
+    height: 180,
+  },
   newBarrioCard: {
-    border: "1px solid ",
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-  input: {
-    padding: theme.spacing(2),
-  },
-  gridStep: {
-    minHeight: "10rem",
+    height: 180,
   },
 }));
 
-export default function NewBarrioForm({ alert, handleSubmit }) {
+export default function NewBarrioForm({ alert, handleSubmit, loading }) {
   const classes = useStyles();
   const [statesList] = React.useState(ESTADOS_LABEL_MX);
   const [activeStep, setActiveStep] = React.useState(0);
@@ -126,10 +120,17 @@ export default function NewBarrioForm({ alert, handleSubmit }) {
                   </Typography>
                   <Typography variant="h6">{form?.shortName}</Typography>
                 </Box>
-                <Button onClick={handleReset}>Cancelar</Button>
-                <Button type="submit" color="primary" variant="contained">
-                  ¿la información es correcta?
-                </Button>
+                <Box m={2} display="flex" justifyContent="space-around">
+                  <Button onClick={handleReset}>Regresar</Button>
+                  <MyButton
+                    loading={loading}
+                    type="submit"
+                    color="primary"
+                    variant="contained"
+                  >
+                    Guardar
+                  </MyButton>
+                </Box>
               </Box>
             </Paper>
           ) : (
@@ -138,66 +139,77 @@ export default function NewBarrioForm({ alert, handleSubmit }) {
                 <Typography className={classes.instructions}>
                   {getStepContent(activeStep)}
                 </Typography>
-                <Grid container className={classes.gridStep}>
-                  {activeStep === 0 && (
-                    <Box m={2} width="100%">
-                      <MySelectInput
-                        label="Estado"
-                        name="stateLabel"
-                        placeholder="Selecciona un Estado"
-                        options={statesList}
-                        value={form?.stateData?.value}
-                        onChange={handleSelectState}
-                      />
-                    </Box>
-                  )}
-                  {activeStep === 1 && (
-                    <Grid item xs={12} className={classes.input}>
-                      <FormControl>
-                        <TextField
-                          value={form.name}
-                          size="small"
-                          name="name"
-                          onChange={handleChange}
-                          label="Nombre del barrio"
-                          variant="outlined"
-                          helperText="[Ej. Villas de La Hacienda, Atizapán]"
-                        />
-                      </FormControl>
-                    </Grid>
-                  )}
-                  {activeStep === 2 && (
-                    <Grid item xs={12} className={classes.input}>
-                      <FormControl>
-                        <TextField
-                          value={form.shortName}
-                          size="small"
-                          name="shortName"
-                          label="Nombre corto"
-                          variant="outlined"
-                          onChange={handleChange}
-                          helperText="[ Ej. lasvillas]"
-                        />
-                      </FormControl>
-                    </Grid>
-                  )}
+                <Grid container spacing={2} className={classes.inputsGrid}>
+                  <Grid
+                    item
+                    xs={12}
+                    style={{ display: activeStep === 0 || "none" }}
+                  >
+                    <MainInput
+                      select
+                      medium
+                      label="Estado"
+                      name="stateLabel"
+                      options={statesList}
+                      value={form?.stateData?.value}
+                      placeholder="Selecciona un Estado"
+                      onChange={handleSelectState}
+                      helperText="[Solo en México, por ahora]"
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    style={{ display: activeStep === 1 || "none" }}
+                  >
+                    <MainInput
+                      value={form.name}
+                      medium
+                      name="name"
+                      onChange={handleChange}
+                      label="Nombre del barrio"
+                      variant="outlined"
+                      placeholder="Barrio"
+                      helperText="[Ej. Villas de La Hacienda, Atizapán]"
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    style={{ display: activeStep === 2 || "none" }}
+                  >
+                    <MainInput
+                      value={form.shortName}
+                      medium
+                      name="shortName"
+                      label="Nombre corto"
+                      variant="outlined"
+                      onChange={handleChange}
+                      placeholder="Nombre Corto"
+                      helperText="[ Ej. lasvillas]"
+                    />
+                  </Grid>
                 </Grid>
 
-                <Box m={2} p={2}>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.backButton}
-                  >
-                    Atras
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 1 ? "Termina" : "Siguiente"}
-                  </Button>
+                <Box p={2} display="flex" justifyContent="space-around">
+                  <Box>
+                    <Button
+                      disabled={activeStep === 0}
+                      onClick={handleBack}
+                      className={classes.backButton}
+                    >
+                      Atras
+                    </Button>
+                  </Box>
+                  <Box>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                    >
+                      Siguiente
+                    </Button>
+                  </Box>
                 </Box>
               </Paper>
             </div>

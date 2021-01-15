@@ -4,15 +4,11 @@ import Alert from "@material-ui/lab/Alert";
 
 import Axios from "axios";
 import url from "../../../url/url";
-import NoLoggedView from "../../NoLoggedView";
 import useAxios from "../../myHooks/useAxios";
 import VerticalStepper from "../../moleculas/VerticalStepper";
-import { useUser } from "../../../context/userContext";
 import { uploadImage } from "../../../utils/uploadImage";
 
 export default function EditAdvert(props) {
-  const { isLogged } = useUser();
-  
   const { data } = useAxios(url + "/barrios");
   const [token, setToken] = useState(localStorage.getItem("access-token"));
   const [status, setStatus] = useState({
@@ -152,29 +148,23 @@ export default function EditAdvert(props) {
   console.log(contacts);
 
   return (
-    <>
-      {isLogged ? (
-        <VerticalStepper
-          title="Editar Anuncio"
-          submiting={status.loading}
-          data={data}
-          setImage={setImage}
-          handleDeleteChip={handleDeleteChip}
-          labelsSelected={labelsSelected}
-          labelDisabled={labelDisabled}
-          hanldeAddToLabelList={hanldeAddToLabelList}
-          message={status.messageError}
-          form={form}
-          handleChange={handleChange}
-          onSubmit={handleSubmit}
-          stateList={stateListCleaned}
-          barriosList={barriosList}
-          contacts={contacts}
-          setContacts={setContacts}
-        />
-      ) : (
-        <NoLoggedView text="Nuevo anuncio" />
-      )}
-    </>
+    <VerticalStepper
+      title="Editar Anuncio"
+      submiting={status.loading}
+      data={data}
+      setImage={setImage}
+      handleDeleteChip={handleDeleteChip}
+      labelsSelected={labelsSelected}
+      labelDisabled={labelDisabled}
+      hanldeAddToLabelList={hanldeAddToLabelList}
+      message={status.messageError}
+      form={form}
+      handleChange={handleChange}
+      onSubmit={handleSubmit}
+      stateList={stateListCleaned}
+      barriosList={barriosList}
+      contacts={contacts}
+      setContacts={setContacts}
+    />
   );
 }

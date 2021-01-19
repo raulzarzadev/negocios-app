@@ -10,6 +10,7 @@ import defaultImage from "../../assets/negdelbar_logo.png";
 import { useHistory } from "react-router-dom";
 import Loading from "../atomos/Loading";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
@@ -168,7 +169,9 @@ export default function AdvertCart({
               </Tooltip>
             ) : savedAsFavorite ? (
               <Tooltip title="Borrar de favoritos">
-                <IconButton onClick={handleDeleteFavorite}>X</IconButton>
+                <IconButton onClick={handleDeleteFavorite}>
+                  <BookmarkIcon />
+                </IconButton>
               </Tooltip>
             ) : (
               <Tooltip title="Guardar como favorito">

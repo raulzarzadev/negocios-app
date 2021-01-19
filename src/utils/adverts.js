@@ -32,7 +32,7 @@ export function getPublishedAdverts() {
   return axios.get(`${URL}/adverts`);
 }
 export function getAllAdverts() {
-  return axios.get(`${URL}/adverts/allAdverts`);
+  return axios.get(`${URL}/adverts/all`);
 }
 
 export function getAdvertsByBarrio(barrio) {

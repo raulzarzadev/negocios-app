@@ -76,6 +76,7 @@ export default function AdvertManage({ advert = {} }) {
 
   return (
     <>
+      
       <Grid item xs={12} container style={{ margin: "8px 0" }}>
         <Grid item xs={3}>
           <Typography noWrap>{title}</Typography>

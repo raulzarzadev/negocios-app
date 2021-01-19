@@ -7,17 +7,20 @@ import MyButton from "../atomos/MyButton";
 import AdvertManage from "../moleculas/AdverManage";
 
 export default function Dashboard() {
-  const {user} = useUser();
-  
+  const { user } = useUser();
 
   const [adverts, setAdverts] = useState([]);
   const [loading, setLoadign] = useState(true);
-
+  const [allAdverts, setAllAdverts] = useState([]);
   useEffect(() => {
-    getAllAdverts().then((res) => {
-      setAdverts(user?.adverts);
-      setLoadign(false);
-    });
+    getAllAdverts()
+      .then(({ data }) => {
+        console.log(data);
+        setAdverts(user?.adverts);
+        setAllAdverts(data?.adverts);
+        setLoadign(false);
+      })
+      .catch((err) => console.log(err));
   }, [user]);
 
   if (loading) return <Loading />;
@@ -35,38 +38,45 @@ export default function Dashboard() {
           <MyButton variant="outlined">Nuevo Barrio</MyButton>
         </Box>
       </Box>
+      <ManagerAdvertsView adverts={adverts} title="Ads Propios" />
+      <ManagerAdvertsView adverts={allAdverts} title="Todos los Ads" />
+    </Box>
+  );
+}
 
-      <Box>
-        <Typography variant="h6">Lista de anuncios creados</Typography>
-        <Grid container>
-          <Grid item xs={12} container>
-            <Grid item xs={3}>
-              <Typography variant="h6" noWrap>
-                Titulo
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography variant="h6" noWrap>
-                Descripción
-              </Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Typography variant="p" noWrap style={{ fontSize: "14px" }}>
-                ¿Publicado?
-              </Typography>
-            </Grid>
-
-            <Grid item xs={4}>
-              <Typography variant="h6" noWrap>
-                Acciones
-              </Typography>
-            </Grid>
+function ManagerAdvertsView({ adverts, title }) {
+  return (
+    <Box>
+      <Typography variant="h6">{title}</Typography>
+      <Grid container>
+        <Grid item xs={12} container>
+          <Grid item xs={3}>
+            <Typography variant="h6" noWrap>
+              Titulo
+            </Typography>
           </Grid>
-          {adverts?.map((advert) => (
-            <AdvertManage advert={advert} />
-          ))}
+          <Grid item xs={3}>
+            <Typography variant="h6" noWrap>
+              Descripción
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography variant="p" noWrap style={{ fontSize: "14px" }}>
+              ¿Pub?
+            </Typography>
+          </Grid>
+
+          <Grid item xs={4}>
+            <Typography variant="h6" noWrap>
+              Acciones
+            </Typography>
+          </Grid>
         </Grid>
-      </Box>
+
+        {adverts?.map((advert) => (
+          <AdvertManage advert={advert} />
+        ))}
+      </Grid>
     </Box>
   );
 }

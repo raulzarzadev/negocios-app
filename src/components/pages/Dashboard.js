@@ -45,6 +45,15 @@ export default function Dashboard() {
 }
 
 function ManagerAdvertsView({ adverts, title }) {
+  function handleSortByTitle(title) {
+    console.log(title);
+    return adverts.sort((a, b) => {
+      if (a[title] > b[title]) return 1;
+      if (a[title] < b[title]) return -1;
+      return 0;
+    });
+  }
+  console.log(adverts[0]);
   return (
     <Box>
       <Typography variant="h6">{title}</Typography>
@@ -52,7 +61,7 @@ function ManagerAdvertsView({ adverts, title }) {
         <Grid item xs={12} container>
           <Grid item xs={3}>
             <Typography variant="h6" noWrap>
-              Titulo
+              <div onClick={() => handleSortByTitle("title")}>Titulo</div>
             </Typography>
           </Grid>
           <Grid item xs={3}>

@@ -7,19 +7,18 @@ import MyButton from "../atomos/MyButton";
 import AdvertManage from "../moleculas/AdverManage";
 
 export default function Dashboard() {
-  const {
-    data: { user },
-  } = useUser();
+  const {user} = useUser();
+  
 
   const [adverts, setAdverts] = useState([]);
   const [loading, setLoadign] = useState(true);
 
   useEffect(() => {
     getAllAdverts().then((res) => {
-      setAdverts(res?.data?.adverts);
+      setAdverts(user?.adverts);
       setLoadign(false);
     });
-  }, []);
+  }, [user]);
 
   if (loading) return <Loading />;
 

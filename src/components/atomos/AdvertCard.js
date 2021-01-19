@@ -32,7 +32,7 @@ import { useFavorites } from "../../context/favoritContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
+    width: "inherit",
   },
   labelsBox: {
     [theme.breakpoints.up("xs")]: {
@@ -181,7 +181,7 @@ export default function AdvertCart({
               </Tooltip>
             )}
           </Box>
-          <Box minWidth={80}>
+          <Box>
             {labels?.map((label, i) => (
               <Tooltip
                 key={i}

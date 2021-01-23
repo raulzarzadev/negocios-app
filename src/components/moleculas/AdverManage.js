@@ -24,8 +24,9 @@ import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import DetailsIcon from "@material-ui/icons/Details";
+import { useAds } from "../../context/adsContext";
 
-export default function AdvertManage({ advert = {} }) {
+export default function AdvertManage({ advert = {}, refetch }) {
   const { title, description, isPublished, _id } = advert;
 
   const history = useHistory();
@@ -33,12 +34,16 @@ export default function AdvertManage({ advert = {} }) {
   const [publishModal, setPublishModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
+  const { refetchAllAds } = useAds();
 
   const handleDeleteAdvert = (id) => {
     setLoading(true);
     deleteAdvert(id)
       .then((res) => {
-        window.location.replace("");
+        refetchAllAds();
+
+        setDeleteModal(false);
+        refetch();
       })
       .catch((err) => {
         setLoading(false);
@@ -61,7 +66,9 @@ export default function AdvertManage({ advert = {} }) {
       publishedOn: [],
     })
       .then((res) => {
-        window.location.replace("");
+        console.log(res.data);
+        console.log("update adverts");
+        refetch();
       })
       .catch((err) => console.log(err));
   };
@@ -76,7 +83,6 @@ export default function AdvertManage({ advert = {} }) {
 
   return (
     <>
-      
       <Grid item xs={12} container style={{ margin: "8px 0" }}>
         <Grid item xs={3}>
           <Typography noWrap>{title}</Typography>
@@ -137,7 +143,11 @@ export default function AdvertManage({ advert = {} }) {
         open={publishModal}
         handleOpenModal={handleOpenPublishModal}
       >
-        <ToPublishAdvert advert={advert} closeModal={handleOpenPublishModal} />
+        <ToPublishAdvert
+          advert={advert}
+          closeModal={handleOpenPublishModal}
+          refetch={refetch}
+        />
       </MyModal>
       <MyModal
         title="Eliminar anuncio"

@@ -25,14 +25,17 @@ import SignUp from "../components/pages/userPages/SignUp";
 import FinishSignup from "../components/pages/userPages/FinishSignup";
 import Profile from "../components/pages/userPages/Profile";
 import { FavoriteProvider } from "../context/favoritContext";
+import { AdsProvider } from "../context/adsContext";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
   <MuiThemeProvider theme={newTheme}>
-    <FavoriteProvider>
-      <UserProvider>
-        <App></App>
-      </UserProvider>
-    </FavoriteProvider>
+    <UserProvider>
+      <AdsProvider>
+        <FavoriteProvider>
+          <App></App>
+        </FavoriteProvider>
+      </AdsProvider>
+    </UserProvider>
   </MuiThemeProvider>
 );
 

@@ -6,7 +6,7 @@ import { getAllBarrios, updateAdvert } from "../../utils/adverts";
 import { includes } from "../../helpres";
 import Loading from "../atomos/Loading";
 
-export default function ToPublishAdvert({ advert, closeModal }) {
+export default function ToPublishAdvert({ advert, closeModal, refetch }) {
   const [state, setState] = useState("");
   const [barrio, setBarrio] = useState("");
   const [barrios, setBarrios] = useState([]);
@@ -63,8 +63,11 @@ export default function ToPublishAdvert({ advert, closeModal }) {
       publishedOn: [barrio],
     })
       .then((res) => {
-        window.location.href = "/perfil";
-        console.log(res);
+        //console.log(res.data)
+        //window.location.href = "/dashboard";
+        refetch()
+        closeModal();
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };

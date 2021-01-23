@@ -4,7 +4,7 @@ import { useFavorites } from "../../../context/favoritContext";
 import { useUser } from "../../../context/userContext";
 import UserView from "../../moleculas/UserView";
 
-export default function NewUser(pops) {
+function Profile(pops) {
   const { isLogged, user } = useUser();
   const { favoriteAds } = useFavorites();
   const [publishedAdverts, setPublishedAdverts] = useState([]);
@@ -26,3 +26,5 @@ export default function NewUser(pops) {
     />
   );
 }
+
+export default Profile;

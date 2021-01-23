@@ -29,6 +29,7 @@ import ContactLink from "./ContactLink";
 import ToPublishAdvert from "../moleculas/ToPublishAdvert";
 import { deleteAdvert, updateAdvert } from "../../utils/adverts";
 import { useFavorites } from "../../context/favoritContext";
+import { useAds } from "../../context/adsContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,11 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AdvertCart({
-  advert = {},
-  admin = false,
-  publishArea = false,
-}) {
+function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
   const {
     title,
     description,
@@ -86,6 +83,7 @@ export default function AdvertCart({
   } = advert;
 
   const { favoriteList, addFavorite, removeFavorite } = useFavorites();
+  const { refetchAllAds } = useAds();
   const classes = useStyles();
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);
@@ -109,7 +107,8 @@ export default function AdvertCart({
     setLoading(true);
     deleteAdvert(id)
       .then((res) => {
-        window.location.replace("");
+        refetchAllAds();
+        setLoading(false);
       })
       .catch((err) => {
         setLoading(false);
@@ -197,7 +196,9 @@ export default function AdvertCart({
             ))}
           </Box>
         </Box>
-        <CardActionArea onClick={handleOpenModal}>
+        <CardActionArea
+        //onClick={handleOpenModal}
+        >
           <CardMedia
             component="img"
             alt={title}
@@ -261,7 +262,7 @@ export default function AdvertCart({
           <strong>'eliminar anuncio'</strong>
         </Typography>
         <Box my={2}>
-          <AdvertCart advert={advert} />
+          <AdvertCard advert={advert} />
         </Box>
         <Box marginTop={2}>
           <Typography>
@@ -319,3 +320,5 @@ export default function AdvertCart({
     </>
   );
 }
+
+export default AdvertCard;

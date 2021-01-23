@@ -41,7 +41,7 @@ export default function ContactInputs({ advert, setAdvert }) {
         break;
     }
   }, [newContact.contactType, defaultValue]);
-  console.log(defaultValue);
+  //console.log(defaultValue);
 
   const addContact = () => {
     setContacts([...contacts, newContact]);

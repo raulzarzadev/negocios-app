@@ -4,12 +4,7 @@ import UserAdvertsDisplay from "../moleculas/UserAdvertsDisplay";
 import MyButton from "../atomos/MyButton";
 import MyLink from "../atomos/MyLink";
 
-export default function UserView({
-  user,
-  favoriteAds,
-  publishedAdverts,
-  advertsCreated,
-}) {
+function UserView({ user, favoriteAds, publishedAdverts, advertsCreated }) {
   return (
     <Box my={3}>
       <Typography variant="h4">Usuario </Typography>
@@ -53,3 +48,5 @@ export default function UserView({
     </Box>
   );
 }
+
+export default UserView;

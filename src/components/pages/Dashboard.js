@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { useAds } from "../../context/adsContext";
 import { useUser } from "../../context/userContext";
 import { getAllAdverts } from "../../utils/adverts";
 import Loading from "../atomos/Loading";
@@ -9,19 +10,13 @@ import AdvertManage from "../moleculas/AdverManage";
 export default function Dashboard() {
   const { user } = useUser();
 
-  const [adverts, setAdverts] = useState([]);
-  const [loading, setLoadign] = useState(true);
-  const [allAdverts, setAllAdverts] = useState([]);
+  const { allAdverts, refetchAllAds, loading, userAdverts } = useAds();
+
+  console.log(userAdverts);
+
   useEffect(() => {
-    getAllAdverts()
-      .then(({ data }) => {
-        console.log(data);
-        setAdverts(user?.adverts);
-        setAllAdverts(data?.adverts);
-        setLoadign(false);
-      })
-      .catch((err) => console.log(err));
-  }, [user]);
+    refetchAllAds();
+  }, []);
 
   if (loading) return <Loading />;
 
@@ -38,22 +33,27 @@ export default function Dashboard() {
           <MyButton variant="outlined">Nuevo Barrio</MyButton>
         </Box>
       </Box>
-      <ManagerAdvertsView adverts={adverts} title="Ads Propios" />
-      <ManagerAdvertsView adverts={allAdverts} title="Todos los Ads" />
+      <ManagerAdvertsView
+        handleRefetch={refetchAllAds}
+        adverts={userAdverts}
+        title="Ads Propios"
+      />
+      <ManagerAdvertsView
+        handleRefetch={refetchAllAds}
+        adverts={allAdverts}
+        title="Todos los Ads"
+      />
     </Box>
   );
 }
 
-function ManagerAdvertsView({ adverts, title }) {
-  function handleSortByTitle(title) {
-    console.log(title);
-    return adverts.sort((a, b) => {
-      if (a[title] > b[title]) return 1;
-      if (a[title] < b[title]) return -1;
-      return 0;
-    });
-  }
-  console.log(adverts[0]);
+function ManagerAdvertsView({ adverts, title, handleRefetch }) {
+  adverts.sort((a, b) => {
+    if (!a.isPublished) return 1;
+    if (a.isPublished) return -1;
+    return 0;
+  });
+
   return (
     <Box>
       <Typography variant="h6">{title}</Typography>
@@ -61,7 +61,7 @@ function ManagerAdvertsView({ adverts, title }) {
         <Grid item xs={12} container>
           <Grid item xs={3}>
             <Typography variant="h6" noWrap>
-              <div onClick={() => handleSortByTitle("title")}>Titulo</div>
+              <div>Titulo</div>
             </Typography>
           </Grid>
           <Grid item xs={3}>
@@ -83,7 +83,7 @@ function ManagerAdvertsView({ adverts, title }) {
         </Grid>
 
         {adverts?.map((advert) => (
-          <AdvertManage advert={advert} />
+          <AdvertManage advert={advert} refetch={handleRefetch} />
         ))}
       </Grid>
     </Box>

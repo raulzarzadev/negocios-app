@@ -1,8 +1,7 @@
 import Axios from "axios";
 import React, { useState, useEffect, useMemo } from "react";
-import { getToken, setToken, removeToken } from "../utils/token";
+import { getToken } from "../utils/token";
 
-import { decode } from "jsonwebtoken";
 import {
   getAdvertsByBarrio,
   getAdvertsByOwner,

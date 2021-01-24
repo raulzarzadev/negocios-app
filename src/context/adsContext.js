@@ -42,7 +42,7 @@ export function AdsProvider(props) {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
-a
+
   useEffect(() => {
     getUserAdverts(userId);
   }, [userId]);

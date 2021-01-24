@@ -28,7 +28,6 @@ export default function ToPublishAdvert({ advert, closeModal, refetch }) {
   const handleSelectBarrio = (e) => {
     setBarrio(e.target.value);
     //setBarriosList(e.target.value)
-    console.log(e.target.value);
   };
 
   const setBarriosByState = (state) => {
@@ -65,7 +64,7 @@ export default function ToPublishAdvert({ advert, closeModal, refetch }) {
       .then((res) => {
         //console.log(res.data)
         //window.location.href = "/dashboard";
-        refetch()
+        refetch();
         closeModal();
         setLoading(false);
       })

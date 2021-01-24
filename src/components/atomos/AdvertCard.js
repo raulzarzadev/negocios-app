@@ -129,7 +129,7 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
       isPublished: false,
       publishedOn: [],
     })
-      .then((res) => (window.location.href = "/perfil"))
+      .then((res) => refetchAllAds())
       .catch((err) => console.log(err));
   };
 
@@ -138,10 +138,12 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
   };
 
   const handleSaveFavorite = () => {
+    setSavedAsFavorite(true);
     addFavorite(advert._id);
   };
 
   const handleDeleteFavorite = () => {
+    setSavedAsFavorite(false)
     removeFavorite(advert._id);
   };
 
@@ -250,7 +252,11 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
         open={publishModal}
         handleOpenModal={handleOpenPublishModal}
       >
-        <ToPublishAdvert advert={advert} closeModal={handleOpenPublishModal} />
+        <ToPublishAdvert
+          advert={advert}
+          closeModal={handleOpenPublishModal}
+          refetch={refetchAllAds}
+        />
       </MyModal>
       <MyModal
         title="Eliminar anuncio"

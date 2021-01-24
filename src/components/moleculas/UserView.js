@@ -4,7 +4,7 @@ import UserAdvertsDisplay from "../moleculas/UserAdvertsDisplay";
 import MyButton from "../atomos/MyButton";
 import MyLink from "../atomos/MyLink";
 
-function UserView({ user, favoriteAds, publishedAdverts, advertsCreated }) {
+function UserView({ user, favoriteAds, publishedAdverts, userAdverts }) {
   return (
     <Box my={3}>
       <Typography variant="h4">Usuario </Typography>
@@ -42,7 +42,7 @@ function UserView({ user, favoriteAds, publishedAdverts, advertsCreated }) {
       <UserAdvertsDisplay
         title="Anuncios Creados"
         noAdvertsTitle="No has CREADO anuncios aún."
-        adverts={advertsCreated}
+        adverts={userAdverts}
         admin
       />
     </Box>

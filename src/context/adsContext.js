@@ -31,12 +31,12 @@ export function AdsProvider(props) {
       });
     await getAllAdverts()
       .then(({ data }) => {
-        console.log(data);
         setAllAdverts(data?.adverts);
       })
       .catch((err) => {
         console.log(err);
       });
+      console.log("get all");
     return "done";
   }
 

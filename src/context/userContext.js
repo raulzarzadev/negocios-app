@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useState, useEffect, useMemo } from "react";
 import { getToken, setToken, removeToken } from "../utils/token";
 import { decode } from "jsonwebtoken";
-import { getAdvertsByOwner, getAllAdverts } from "../utils/adverts";
+import { getAdvertsByOwner } from "../utils/adverts";
 import { SIGNUP_SERVICE } from "../URLS";
 
 const UserContext = React.createContext();

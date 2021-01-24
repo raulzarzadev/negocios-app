@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import AdvertCard from "../atomos/AdvertCard";
 import Loading from "../atomos/Loading";
-import { getAdvertsByBarrio } from "../../utils/adverts";
 
 import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";

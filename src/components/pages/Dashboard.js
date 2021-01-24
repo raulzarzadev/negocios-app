@@ -1,8 +1,7 @@
 import { Box, Grid, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useAds } from "../../context/adsContext";
 import { useUser } from "../../context/userContext";
-import { getAllAdverts } from "../../utils/adverts";
 import Loading from "../atomos/Loading";
 import MyButton from "../atomos/MyButton";
 import AdvertManage from "../moleculas/AdverManage";
@@ -16,6 +15,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     refetchAllAds();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) return <Loading />;

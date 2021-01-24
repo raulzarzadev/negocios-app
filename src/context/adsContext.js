@@ -35,7 +35,7 @@ export function AdsProvider(props) {
       });
   }
 
-  const [userAdverts, setUserAdverts] = useState([]);
+  const [userAdverts, ] = useState([]);
   function getUserAdverts(owner) {
     getAdvertsByOwner(owner)
       .then((res) => console.log(res))

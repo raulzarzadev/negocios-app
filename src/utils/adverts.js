@@ -16,6 +16,11 @@ export function getAdvert(id) {
 export function getAdvertsByOwner(owner) {
   return axios.get(`${URL}/adverts/${owner}`);
 }
+
+export function getUserAdverts(user) {
+  return axios.get(`${URL}/adverts/user/${user}`);
+}
+
 export function deleteAdvert(id) {
   return axios.delete(`${URL}/adverts/${id}`);
 }

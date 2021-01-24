@@ -26,7 +26,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import DetailsIcon from "@material-ui/icons/Details";
 import { useAds } from "../../context/adsContext";
 
-export default function AdvertManage({ advert = {}, refetch }) {
+export default function AdvertManage({ advert = {} }) {
   const { title, description, isPublished, _id } = advert;
 
   const history = useHistory();
@@ -41,9 +41,7 @@ export default function AdvertManage({ advert = {}, refetch }) {
     deleteAdvert(id)
       .then((res) => {
         refetchAllAds();
-
         setDeleteModal(false);
-        refetch();
       })
       .catch((err) => {
         setLoading(false);
@@ -68,7 +66,7 @@ export default function AdvertManage({ advert = {}, refetch }) {
       .then((res) => {
         console.log(res.data);
         console.log("update adverts");
-        refetch();
+        refetchAllAds();
       })
       .catch((err) => console.log(err));
   };
@@ -146,7 +144,7 @@ export default function AdvertManage({ advert = {}, refetch }) {
         <ToPublishAdvert
           advert={advert}
           closeModal={handleOpenPublishModal}
-          refetch={refetch}
+          refetch={refetchAllAds}
         />
       </MyModal>
       <MyModal

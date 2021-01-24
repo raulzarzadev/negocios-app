@@ -9,14 +9,9 @@ import AdvertManage from "../moleculas/AdverManage";
 export default function Dashboard() {
   const { user } = useUser();
 
-  const { allAdverts, refetchAllAds, loading, userAdverts } = useAds();
+  const { allAdverts, loading, userAdverts } = useAds();
 
   console.log(userAdverts);
-
-  useEffect(() => {
-    refetchAllAds();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   if (loading) return <Loading />;
 
@@ -33,24 +28,16 @@ export default function Dashboard() {
           <MyButton variant="outlined">Nuevo Barrio</MyButton>
         </Box>
       </Box>
-      <ManagerAdvertsView
-        handleRefetch={refetchAllAds}
-        adverts={userAdverts}
-        title="Ads Propios"
-      />
-      <ManagerAdvertsView
-        handleRefetch={refetchAllAds}
-        adverts={allAdverts}
-        title="Todos los Ads"
-      />
+      <ManagerAdvertsView adverts={userAdverts} title="Ads Propios" />
+      <ManagerAdvertsView adverts={allAdverts} title="Todos los Ads" />
     </Box>
   );
 }
 
-function ManagerAdvertsView({ adverts, title, handleRefetch }) {
+function ManagerAdvertsView({ adverts, title }) {
   adverts.sort((a, b) => {
-    if (!a.isPublished) return 1;
     if (a.isPublished) return -1;
+    if (b.isPublished) return 1;
     return 0;
   });
 
@@ -83,7 +70,7 @@ function ManagerAdvertsView({ adverts, title, handleRefetch }) {
         </Grid>
 
         {adverts?.map((advert) => (
-          <AdvertManage advert={advert} refetch={handleRefetch} />
+          <AdvertManage advert={advert} />
         ))}
       </Grid>
     </Box>

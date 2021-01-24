@@ -6,6 +6,7 @@ import {
   getAdvertsByBarrio,
   getAdvertsByOwner,
   getAllAdverts,
+  getUserAdverts,
 } from "../utils/adverts";
 import { useUser } from "./userContext";
 
@@ -24,6 +25,12 @@ export function AdsProvider(props) {
 
   function refetchAllAds() {
     console.log("refetch");
+    getUserAdverts(user._id)
+      .then(({ data }) => {
+        setUserAdverts(data.adverts);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
     getAllAdverts()
       .then(({ data }) => {
         setLoading(false);
@@ -35,16 +42,25 @@ export function AdsProvider(props) {
       });
   }
 
-  const [userAdverts, ] = useState([]);
-  function getUserAdverts(owner) {
+  const [userAdverts, setUserAdverts] = useState([]);
+
+  /*   function getUserAdverts(owner) {
     getAdvertsByOwner(owner)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   }
-
+ */
   useEffect(() => {
-    getUserAdverts(userId);
-  }, [userId]);
+    refetchAllAds();
+    if (user._id) {
+      getUserAdverts(user._id)
+        .then(({ data }) => {
+          setUserAdverts(data.adverts);
+          setLoading(false);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user._id]);
 
   const [barrio, setBarrio] = useState({});
   const [advertsByBarrio, setAdvertsByBarrio] = useState([]);

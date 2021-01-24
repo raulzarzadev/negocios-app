@@ -24,8 +24,6 @@ export function UserProvider(props) {
     if (token) {
       try {
         const { id } = decode(token);
-        //console.log(id);
-
         getUserAndAdverts(id)
           .then((res) => {
             setUser(res);

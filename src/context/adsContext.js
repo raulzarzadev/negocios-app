@@ -4,7 +4,6 @@ import { getToken } from "../utils/token";
 
 import {
   getAdvertsByBarrio,
-  getAdvertsByOwner,
   getAllAdverts,
   getUserAdverts,
 } from "../utils/adverts";
@@ -13,8 +12,7 @@ import { useUser } from "./userContext";
 const AdsContext = React.createContext();
 
 export function AdsProvider(props) {
-  const { user } = useUser();
-  const [userId] = useState(user._id || "");
+  const { user, isLogged } = useUser();
   const [token] = useState(getToken());
   const [loading, setLoading] = useState(true);
   const [allAdverts, setAllAdverts] = useState([]);
@@ -23,51 +21,44 @@ export function AdsProvider(props) {
     "access-token": token,
   };
 
-  function refetchAllAds() {
-    console.log("refetch");
-    getUserAdverts(user._id)
+  async function refetchAllAds() {
+    await getUserAdverts(user._id)
       .then(({ data }) => {
         setUserAdverts(data.adverts);
-        setLoading(false);
       })
-      .catch((err) => console.log(err));
-    getAllAdverts()
+      .catch((err) => {
+        console.log(err);
+      });
+    await getAllAdverts()
       .then(({ data }) => {
-        setLoading(false);
+        console.log(data);
         setAllAdverts(data?.adverts);
       })
       .catch((err) => {
-        setLoading(false);
         console.log(err);
       });
+    return "done";
   }
 
   const [userAdverts, setUserAdverts] = useState([]);
 
-  /*   function getUserAdverts(owner) {
-    getAdvertsByOwner(owner)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }
- */
   useEffect(() => {
-    refetchAllAds();
-    if (user._id) {
-      getUserAdverts(user._id)
-        .then(({ data }) => {
-          setUserAdverts(data.adverts);
-          setLoading(false);
-        })
-        .catch((err) => console.log(err));
+    if (isLogged) {
+      refetchAllAds().then((res) => console.log(res));
+    } else {
+      console.log("No logged");
+      setLoading(false);
     }
-  }, [user._id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLogged]);
 
   const [barrio, setBarrio] = useState({});
   const [advertsByBarrio, setAdvertsByBarrio] = useState([]);
   const [failBarrio, setFailBarrio] = useState(false);
 
   async function getBarrioAdvert(shortName) {
-    getAdvertsByBarrio(shortName)
+    setLoading(true);
+    await getAdvertsByBarrio(shortName)
       .then((res) => {
         console.log(res);
         if (res.data.ok) {
@@ -76,12 +67,11 @@ export function AdsProvider(props) {
         } else {
           setFailBarrio(true);
         }
-        setLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
         console.log(err);
       });
+    setLoading(false);
   }
   const value = useMemo(() => {
     return {
@@ -94,6 +84,7 @@ export function AdsProvider(props) {
       refetchAllAds,
       getBarrioAdvert,
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, allAdverts, barrio, advertsByBarrio, failBarrio, userAdverts]);
 
   return <AdsContext.Provider value={value} {...props} />;

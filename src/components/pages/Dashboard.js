@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React from "react";
 import { useAds } from "../../context/adsContext";
 import { useUser } from "../../context/userContext";
 import Loading from "../atomos/Loading";
@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   const { allAdverts, loading, userAdverts } = useAds();
 
-  console.log(userAdverts);
+  console.log(userAdverts, allAdverts);
 
   if (loading) return <Loading />;
 

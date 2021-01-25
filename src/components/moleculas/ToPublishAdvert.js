@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import MySelectInput from "../atomos/MySelectInput";
 import MyButton from "../atomos/MyButton";
 import { getAllBarrios, updateAdvert } from "../../utils/adverts";
-import { includes } from "../../helpres";
 import Loading from "../atomos/Loading";
 
 export default function ToPublishAdvert({ advert, closeModal, refetch }) {
@@ -43,15 +42,22 @@ export default function ToPublishAdvert({ advert, closeModal, refetch }) {
     return newBarriosList;
   };
 
-  console.log(barriosList);
 
-  const statesList = [];
+  const statesList = newList();
 
-  barrios.map(
-    (barrio) =>
-      !includes(statesList, barrio.stateData) &&
-      statesList.push(barrio.stateData)
-  );
+  function newList() {
+    let list = [];
+    let auxArr = [];
+    barrios.map((barrio) => {
+      if (!auxArr.includes(barrio.state)) {
+        auxArr.push(barrio.state);
+        list.push(barrio.stateData);
+      }
+      return 0;
+    });
+    return list;
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -28,7 +28,9 @@ export default function VisulaGuide() {
           advert={{
             title: "Prueba de guia visual",
             description: "Description de test",
-            delivery: true,
+            labels:[{value:"mom"},{value:"host"},{value:"drink"}],
+            backgroundColor:"#666",
+            contacts:[{contactType:"ws",label:""}]
           }}
         />
       </Grid>

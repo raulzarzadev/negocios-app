@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -16,8 +16,8 @@ import ContactInputs from "./ContactInputs";
 import SelectLabels from "./SelectLabels";
 
 import BackupIcon from "@material-ui/icons/Backup";
-import ColorLensIcon from "@material-ui/icons/ColorLens";
 import MyBackButton from "../atomos/MyBackButton";
+import ColorPicker from "../atomos/ColorPicker";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +67,14 @@ export default function VerticalStepper({
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  const [color, setColor] = useState("");
+  useEffect(() => {
+    setAdvert({ ...advert, backgroundColor: color });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [color]);
+
+  console.log(color);
 
   return (
     <div className={classes.root}>
@@ -151,41 +159,8 @@ export default function VerticalStepper({
         </Stepper>
         {activeStep === steps.length && (
           <Paper square elevation={0} className={classes.resetContainer}>
-            <MyButton
-              variant="outlined"
-              onClick={handleReset}
-              className={classes.button}
-            >
-              Regresar
-            </MyButton>
             <Box paddingY={2}>
-              <Box>
-                <Typography variant="h5">Selecciona un color:</Typography>
-
-                <input
-                  name="backgroundColor"
-                  defaultValue={advert?.backgroundColor}
-                  accept="image/*"
-                  className={classes.input}
-                  style={{ display: "none" }}
-                  id="raised-button-color"
-                  type="color"
-                  onChange={handleChange}
-                />
-                <label htmlFor="raised-button-color">
-                  <Button
-                    variant="raised"
-                    component="span"
-                    className={classes.button}
-                  >
-                    Selecciona Color{" "}
-                    <ColorLensIcon
-                      fontSize="small"
-                      style={{ color: advert?.backgroundColor, margin: "4px" }}
-                    />
-                  </Button>
-                </label>
-              </Box>
+              <ColorPicker color={color} setColor={setColor} />
               <Box>
                 <input
                   accept="image/*"
@@ -207,19 +182,27 @@ export default function VerticalStepper({
                 </label>
               </Box>
             </Box>
+
             <Box maxWidth={220} margin="0 auto">
               <AdvertCard advert={advert} />
             </Box>
-            <Box paddingY={2}>
-              <Box m={4}>
-                <MyButton
-                  type="submit"
-                  color="primary"
-                  variant="contained"
-                  label="Guardar Anuncio"
-                  loading={loading}
-                />
-              </Box>
+            <Box m={2}>
+              <MyButton
+                variant="outlined"
+                onClick={handleReset}
+                className={classes.button}
+              >
+                Regresar
+              </MyButton>
+            </Box>
+            <Box m={2}>
+              <MyButton
+                type="submit"
+                color="primary"
+                variant="contained"
+                label="Guardar Anuncio"
+                loading={loading}
+              />
             </Box>
           </Paper>
         )}

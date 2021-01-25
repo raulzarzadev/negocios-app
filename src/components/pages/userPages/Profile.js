@@ -5,12 +5,12 @@ import { useFavorites } from "../../../context/favoritContext";
 import { useUser } from "../../../context/userContext";
 import UserView from "../../moleculas/UserView";
 
-function Profile(pops) {
+function Profile() {
   const { isLogged, user } = useUser();
   const { userAdverts } = useAds();
   const { favoriteAds } = useFavorites();
   const [publishedAdverts, setPublishedAdverts] = useState([]);
-  console.log(userAdverts)
+  console.log(favoriteAds);
 
   useEffect(() => {
     setPublishedAdverts(

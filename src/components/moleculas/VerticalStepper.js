@@ -18,6 +18,7 @@ import SelectLabels from "./SelectLabels";
 import BackupIcon from "@material-ui/icons/Backup";
 import MyBackButton from "../atomos/MyBackButton";
 import ColorPicker from "../atomos/ColorPicker";
+import UploadImageInput from "../atomos/UploadImageInput";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -162,6 +163,7 @@ export default function VerticalStepper({
             <Box paddingY={2}>
               <ColorPicker color={color} setColor={setColor} />
               <Box>
+                <UploadImageInput />
                 <input
                   accept="image/*"
                   className={classes.input}

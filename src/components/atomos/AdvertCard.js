@@ -122,7 +122,7 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
 
   const handleOpenPublishModal = () => {
     setPublishModal(!publishModal);
-    handleClose();
+    handleCloseMenu();
   };
   const handleUnpublish = () => {
     updateAdvert(advert._id, {
@@ -134,7 +134,7 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
       .catch((err) => console.log(err));
   };
 
-  const handleClose = () => {
+  const handleCloseMenu = () => {
     setAnchorEl(null);
   };
 
@@ -303,23 +303,51 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={handleCloseMenu}
       >
-        <MenuItem onClick={handleOpenDetails}>Detalles</MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleOpenDetails();
+            handleCloseMenu();
+          }}
+        >
+          Detalles
+        </MenuItem>
 
         {isPublished ? (
-          <MenuItem onClick={() => handleUnpublish()}>Despublicar</MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleUnpublish();
+              handleCloseMenu();
+            }}
+          >
+            Despublicar
+          </MenuItem>
         ) : (
-          <MenuItem onClick={() => handleOpenPublishModal()}>Publicar</MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleOpenPublishModal();
+              handleCloseMenu();
+            }}
+          >
+            Publicar
+          </MenuItem>
         )}
 
         {!publishArea && (
           <>
-            <MenuItem onClick={() => handleEdit(_id)}>Editar</MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleEdit(_id);
+                handleCloseMenu();
+              }}
+            >
+              Editar
+            </MenuItem>
             <MenuItem
               onClick={() => {
                 handleOpenDeleteModal();
-                handleClose();
+                handleCloseMenu();
               }}
             >
               <div style={{ border: "solid 3px red", padding: "4px" }}>

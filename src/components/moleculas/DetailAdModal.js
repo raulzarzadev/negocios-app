@@ -88,7 +88,8 @@ export default function DetailAdModal({ opened, setOpened, advert }) {
                     fontSize="small"
                     style={{ color: "green" }}
                   />
-                  <FormLabel component="legend">publicado</FormLabel>
+                  <FormLabel component="legend">Publicado</FormLabel>
+
                 </>
               ) : (
                 <>

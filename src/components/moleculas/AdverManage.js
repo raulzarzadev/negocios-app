@@ -6,7 +6,6 @@ import Loading from "../atomos/Loading";
 import {
   Box,
   Button,
-  FormLabel,
   Grid,
   IconButton,
   Tooltip,
@@ -69,9 +68,7 @@ export default function AdvertManage({ advert = {} }) {
         refetchAllAds();
       })
       .catch((err) => console.log(err));
-  };
-
- 
+  }; 
 
   const handleEdit = (advertId) => {
     history.push(`/editar/${advertId}`);

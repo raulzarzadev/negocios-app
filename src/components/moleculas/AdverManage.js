@@ -25,6 +25,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import DetailsIcon from "@material-ui/icons/Details";
 import { useAds } from "../../context/adsContext";
+import DetailAdModal from "./DetailAdModal";
 
 export default function AdvertManage({ advert = {} }) {
   const { title, description, isPublished, _id } = advert;
@@ -33,7 +34,6 @@ export default function AdvertManage({ advert = {} }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [publishModal, setPublishModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [detailsModal, setDetailsModal] = useState(false);
   const { refetchAllAds } = useAds();
 
   const handleDeleteAdvert = (id) => {
@@ -71,12 +71,15 @@ export default function AdvertManage({ advert = {} }) {
       .catch((err) => console.log(err));
   };
 
-  const handleOpenDetailsModal = () => {
-    setDetailsModal(!detailsModal);
-  };
+ 
 
   const handleEdit = (advertId) => {
     history.push(`/editar/${advertId}`);
+  };
+
+  const [openDetails, setOpenDetails] = useState(false);
+  const handleOpenDetails = () => {
+    setOpenDetails(!openDetails);
   };
 
   return (
@@ -123,7 +126,7 @@ export default function AdvertManage({ advert = {} }) {
             <Tooltip title="Detalles">
               <IconButton
                 size="small"
-                onClick={() => handleOpenDetailsModal(_id)}
+                onClick={() => handleOpenDetails(_id)}
               >
                 <DetailsIcon />
               </IconButton>
@@ -178,74 +181,11 @@ export default function AdvertManage({ advert = {} }) {
           </Box>
         </Box>
       </MyModal>
-      <MyModal
-        title="Detalles de anuncio"
-        open={detailsModal}
-        handleOpenModal={handleOpenDetailsModal}
-      >
-        <Box display="flex" justifyContent="center">
-          <Box width={240}>
-            <AdvertCart advert={advert} />
-          </Box>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-evenly"
-          >
-            <Box p={1} textAlign="center">
-              {isPublished ? (
-                <>
-                  <CheckCircleIcon
-                    fontSize="small"
-                    style={{ color: "green" }}
-                  />
-                  <FormLabel component="legend">publicado</FormLabel>
-                </>
-              ) : (
-                <>
-                  <CancelIcon fontSize="small" style={{ color: "red" }} />
-                  <FormLabel component="legend">No publicado</FormLabel>
-                </>
-              )}
-            </Box>
-
-            {isPublished ? (
-              <Tooltip title="Despublicar">
-                <IconButton
-                  size="small"
-                  onClick={handleUnpublish}
-                  style={{ color: "red" }}
-                >
-                  <GetAppIcon />
-                  <FormLabel component="legend">despublicar</FormLabel>
-                </IconButton>
-              </Tooltip>
-            ) : (
-              <Tooltip title="Publicar">
-                <IconButton
-                  size="small"
-                  onClick={handleOpenPublishModal}
-                  //color="primary"
-                >
-                  <PublishIcon />{" "}
-                  <FormLabel component="legend">publicar</FormLabel>
-                </IconButton>
-              </Tooltip>
-            )}
-            <Tooltip title="Editar">
-              <IconButton size="small" onClick={() => handleEdit(_id)}>
-                <EditIcon /> <FormLabel component="legend">editar</FormLabel>
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Eliminar">
-              <IconButton size="small" onClick={handleOpenDeleteModal}>
-                <DeleteForeverIcon style={{ color: "red" }} />{" "}
-                <FormLabel component="legend">eliminar</FormLabel>
-              </IconButton>
-            </Tooltip>
-          </Box>
-        </Box>
-      </MyModal>
+      <DetailAdModal
+        opened={openDetails}
+        setOpened={handleOpenDetails}
+        advert={advert}
+      />
     </>
   );
 }

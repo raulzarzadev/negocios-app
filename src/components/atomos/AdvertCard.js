@@ -30,6 +30,7 @@ import ToPublishAdvert from "../moleculas/ToPublishAdvert";
 import { deleteAdvert, updateAdvert } from "../../utils/adverts";
 import { useFavorites } from "../../context/favoritContext";
 import { useAds } from "../../context/adsContext";
+import DetailAdModal from "../moleculas/DetailAdModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -143,8 +144,13 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
   };
 
   const handleDeleteFavorite = () => {
-    setSavedAsFavorite(false)
+    setSavedAsFavorite(false);
     removeFavorite(advert._id);
+  };
+
+  const [openDetails, setOpenDetails] = useState(false);
+  const handleOpenDetails = () => {
+    setOpenDetails(!openDetails);
   };
 
   const [savedAsFavorite, setSavedAsFavorite] = useState(false);
@@ -299,7 +305,7 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Detalles</MenuItem>
+        <MenuItem onClick={handleOpenDetails}>Detalles</MenuItem>
 
         {isPublished ? (
           <MenuItem onClick={() => handleUnpublish()}>Despublicar</MenuItem>
@@ -323,6 +329,11 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
           </>
         )}
       </Menu>
+      <DetailAdModal
+        opened={openDetails}
+        setOpened={handleOpenDetails}
+        advert={advert}
+      />
     </>
   );
 }

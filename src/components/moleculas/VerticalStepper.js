@@ -68,7 +68,7 @@ export default function VerticalStepper({
     setActiveStep(0);
   };
 
-  const [color, setColor] = useState("");
+  const [color, setColor] = useState(advert?.backgroundColor || "");
   useEffect(() => {
     setAdvert({ ...advert, backgroundColor: color });
     // eslint-disable-next-line react-hooks/exhaustive-deps

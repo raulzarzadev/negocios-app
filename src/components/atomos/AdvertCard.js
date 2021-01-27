@@ -158,6 +158,7 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
   useEffect(() => {
     setSavedAsFavorite(favoriteList?.includes(advert._id));
   }, [favoriteList, advert._id]);
+  
 
   return (
     <>

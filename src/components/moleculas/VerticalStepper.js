@@ -57,6 +57,8 @@ export default function VerticalStepper({
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
+  
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -163,25 +165,11 @@ export default function VerticalStepper({
             <Box paddingY={2}>
               <ColorPicker color={color} setColor={setColor} />
               <Box>
-                <UploadImageInput />
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  style={{ display: "none" }}
-                  id="raised-button-file"
-                  type="file"
-                  onChange={setImage}
+                <UploadImageInput
+                  image={advert?.image?.src}
+                  handleSetImage={setImage}
                 />
-                <label htmlFor="raised-button-file">
-                  <Button
-                    variant="raised"
-                    component="span"
-                    className={classes.button}
-                  >
-                    Subir imagen{" "}
-                    <BackupIcon fontSize="small" style={{ margin: "4px" }} />
-                  </Button>
-                </label>
+  
               </Box>
             </Box>
 

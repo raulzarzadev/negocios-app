@@ -5,7 +5,12 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: "none",
-    color: "inherit",
+    color: "#000",
+    "&:hover": {
+      color: "#000",
+      textDecoration: "none",
+      fontWeight: 500,
+    },
   },
   decoratedLink: {
     border: "1px solid",
@@ -14,11 +19,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyLink({ to, children, component, decorated }) {
+export default function MyLink({
+  to,
+  children,
+  component,
+  decorated,
+  onClick,
+}) {
   const classes = useStyles();
   return (
     <Link
-      className={decorated ? classes.decoratedLink : classes.link}
+      onClick={onClick}
+      className={classes.link}
       to={to}
       component={component}
     >

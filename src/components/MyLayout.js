@@ -8,7 +8,7 @@ import { useUser } from "../context/userContext";
 const useStyles = makeStyles((theme) => ({
   layout: {
     marginTop: 0,
-    minHeight: "70vh",
+    minHeight: "calc(100vh - 100px)",
     textAlign: "center",
     padding: theme.spacing(0.5),
     [theme.breakpoints.up("sm")]: {

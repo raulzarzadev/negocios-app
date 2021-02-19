@@ -6,9 +6,7 @@ function UploadImageInput({ handleSetImage, image }) {
 
 
   return (
-    <div>
-      
-      
+    <div>      
       <input
         accept="image/*"
         style={{ display: "none" }}
@@ -18,7 +16,7 @@ function UploadImageInput({ handleSetImage, image }) {
       />
       <label htmlFor="raised-button-file">
         <Button variant="raised" component="span">
-          Subir imagen{" "}
+          Subir imagen
         </Button>
       </label>
     </div>

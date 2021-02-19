@@ -8,7 +8,7 @@ const palette = {
   },
   primary: {
     light: "rgba(140, 149, 216, 1)",
-    main: "rgba(124, 178, 204, 0.42)",
+    main: "rgba(124, 178, 204, 1)",
     dark: "rgba(108, 110, 126, 1)",
     contrastText: "rgba(118, 92, 143, 1)",
   },

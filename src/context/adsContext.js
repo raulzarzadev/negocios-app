@@ -36,7 +36,6 @@ export function AdsProvider(props) {
       .catch((err) => {
         console.log(err);
       });
-    console.log("get all");
     return "done";
   }
 
@@ -60,7 +59,6 @@ export function AdsProvider(props) {
     setLoading(true);
     await getAdvertsByBarrio(shortName)
       .then((res) => {
-        console.log(res);
         if (res.data.ok) {
           setBarrio(res.data.barrio);
           setAdvertsByBarrio(res.data.adverts);

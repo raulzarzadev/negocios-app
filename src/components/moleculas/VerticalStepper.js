@@ -15,7 +15,6 @@ import AdvertCard from "../atomos/AdvertCard";
 import ContactInputs from "./ContactInputs";
 import SelectLabels from "./SelectLabels";
 
-import BackupIcon from "@material-ui/icons/Backup";
 import MyBackButton from "../atomos/MyBackButton";
 import ColorPicker from "../atomos/ColorPicker";
 import UploadImageInput from "../atomos/UploadImageInput";

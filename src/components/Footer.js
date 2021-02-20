@@ -1,8 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core";
-import MyLink from "./atomos/MyLink";
-import negdelbar_logo from "../assets/negdelbar_logo.png";
-import { Search } from "@material-ui/icons";
 import SearchInput from "./atomos/SearchInput";
 
 const useStyles = makeStyles((theme) => ({

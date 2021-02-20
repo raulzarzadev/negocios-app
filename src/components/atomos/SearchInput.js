@@ -41,6 +41,7 @@ export default function SearchInput() {
   const [searchResults, setSearchResults] = useState(null);
   useEffect(() => {
     getBarrios().then((res) => setBarrios(res.data.barrios));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {

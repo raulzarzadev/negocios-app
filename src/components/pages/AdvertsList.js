@@ -36,7 +36,8 @@ export default function AdvertsList() {
     }
     setAdverts(filterAdsByLable(filter));
     setIsLoading(false);
-  }, [filter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, advertsByBarrio]);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -64,7 +65,6 @@ export default function AdvertsList() {
 
   if (failBarrio) return <NotFound errorMessage="Este lugar aun no existe" />;
   if (loading || isLoading) return <Loading />;
-  console.log(filter);
   return (
     <>
       <Filtro handleSetFilter={handleSetFilter} labels={labels} />

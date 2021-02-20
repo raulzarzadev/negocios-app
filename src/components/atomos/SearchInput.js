@@ -38,7 +38,7 @@ export default function SearchInput() {
   const { getBarrios } = useBarrios();
   const [input, setInput] = useState("");
   const [barrios, setBarrios] = useState();
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(null);
   useEffect(() => {
     getBarrios().then((res) => setBarrios(res.data.barrios));
   }, []);

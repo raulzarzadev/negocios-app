@@ -1,4 +1,3 @@
-import { useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../URLS";
 import { getToken } from "../utils/token";
@@ -11,13 +10,7 @@ axios.defaults.headers = {
   "access-token": token,
 };
 
-export function createNewBarrio(newBarrio) {
-  return axios.post(`${URL}/barrios`, newBarrio);
-}
-
 export function useBarrios(props) {
-  const [barrios, setBarrios] = useState();
-  
   const getBarrios = () => {
     return axios.get(`${URL}/barrios`);
   };

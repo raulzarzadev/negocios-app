@@ -24,7 +24,7 @@ export function FavoriteProvider(props) {
   };
 
   useEffect(() => {
-    if(!id) return 
+    if (!id) return;
     updateFavoriteAdsList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -41,15 +41,20 @@ export function FavoriteProvider(props) {
   }
 
   const addFavorite = (advertId) => {
-    console.log("add");
     saveFavoriteAdvert(id, advertId)
-      .then((res) => updateFavoriteAdsList())
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log("added");
+        updateFavoriteAdsList();
+      })
+      .catch((err) => console.log(err, "error"));
   };
   const removeFavorite = (advertId) => {
     deleteFavoriteAdvert(id, advertId)
-      .then((res) => updateFavoriteAdsList())
-      .catch((err) => console.log(err));
+      .then((res) => {
+        console.log("removed");
+        updateFavoriteAdsList();
+      })
+      .catch((err) => console.log('removed err',err));
   };
 
   const value = useMemo(() => {

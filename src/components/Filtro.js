@@ -1,47 +1,68 @@
-import React, { useState } from 'react'
+import { makeStyles, Tooltip } from "@material-ui/core";
+import React, { useState } from "react";
+import ViewModuleIcon from "@material-ui/icons/ViewModule";
+const useStyles = makeStyles((theme) => ({
+  filter_bar: {},
+  filter_labels: {
+    display: "flex",
+    justifyContent: "center",
+    overflow: "auto",
+  },
+  filter_label: {
+    padding: "4px",
+    margin: 4,
+    cursor: "pointer",
+    "& * ": {
+      fontSize: "2rem",
+    },
+    "&:hover": {
+      boxShadow: "1px 1px 1px #000",
+    },
+  },
+}));
 
-import FastfoodIcon from '@material-ui/icons/Fastfood';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
-import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
-import ChildCareIcon from '@material-ui/icons/ChildCare';
-import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
+export default function Filtro({ handleSetFilter, labels }) {
+  const classes = useStyles();
+  const [filtro, setFiltro] = useState("Todos");
+  const handleChangeFilter = (filter) => {
+    handleSetFilter(filter);
+  };
 
-export default function Filtro() {
-    const [filtro, setFiltro] = useState('todos');
-
-    const handleChangeFilter = newFiltro => {
-        setFiltro(newFiltro)
-    }
-    return (
-        <div>
-            <div style={styles.root}>
-                <AllInclusiveIcon style={styles.icon} onClick={() => handleChangeFilter('todos')} />
-                <FastfoodIcon style={styles.icon} onClick={() => handleChangeFilter('comida')} />
-                <HomeWorkIcon style={styles.icon} onClick={() => handleChangeFilter('hogar')} />
-               <LocalDrinkIcon style={styles.icon} onClick={() => handleChangeFilter('bebidas')} />
-                <LocalHospitalIcon style={styles.icon} onClick={() => handleChangeFilter('salud')} />
-                <DirectionsBikeIcon style={styles.icon} onClick={() => handleChangeFilter('entrega')} />
-                <LocalMallIcon style={styles.icon} onClick={() => handleChangeFilter('recogelo')} />
-                <ChildCareIcon style={styles.icon} onClick={() => handleChangeFilter('niños')} />
+  return (
+    <div className={classes.filter_bar}>
+      <div className={classes.filter_labels}>
+        <Tooltip title="Todos">
+          <div
+            className={classes.filter_label}
+            style={{
+              boxShadow: filtro === "Todos" && "1px 1px 1px #000",
+            }}
+            onClick={() => {
+              handleChangeFilter("");
+              setFiltro("Todos");
+            }}
+          >
+            <ViewModuleIcon />
+          </div>
+        </Tooltip>
+        {labels.map((label) => (
+          <Tooltip title={label.label}>
+            <div
+              style={{
+                boxShadow: filtro === label.label && "1px 1px 1px #000",
+              }}
+              className={classes.filter_label}
+              onClick={() => {
+                handleChangeFilter(label.value);
+                setFiltro(label.label);
+              }}
+            >
+              {label.icon}
             </div>
-            <p style={{backgroundColor: '#fff', margin:' 0 80px', borderRadius: '50%'}}>
-                {filtro}
-            </p>
-        </div>
-    )
-}
-
-const styles = {
-    root: {
-        display: 'flex',
-        justifyContent: 'center'
-    },
-    button: {
-    },
-    icon: {
-        margin: '5px 5px 15px',
-    }
+          </Tooltip>
+        ))}
+      </div>
+      <p className={classes.filter_display}>{filtro}</p>
+    </div>
+  );
 }

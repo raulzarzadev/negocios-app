@@ -36,7 +36,7 @@ export function AdsProvider(props) {
       .catch((err) => {
         console.log(err);
       });
-      console.log("get all");
+    console.log("get all");
     return "done";
   }
 
@@ -73,6 +73,7 @@ export function AdsProvider(props) {
       });
     setLoading(false);
   }
+
   const value = useMemo(() => {
     return {
       loading,

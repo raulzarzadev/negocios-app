@@ -30,7 +30,8 @@ import ToPublishAdvert from "../moleculas/ToPublishAdvert";
 import { deleteAdvert, updateAdvert } from "../../utils/adverts";
 import { useFavorites } from "../../context/favoritContext";
 import { useAds } from "../../context/adsContext";
-import DetailAdModal from "../moleculas/DetailAdModal";
+import DetailAdminAdModal from "../moleculas/DetailAdminAdModal";
+import AdvertDetailsModal from "../moleculas/AdvertDetailsModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -158,7 +159,12 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
   useEffect(() => {
     setSavedAsFavorite(favoriteList?.includes(advert._id));
   }, [favoriteList, advert._id]);
-  
+
+  const [openDetailsModal, setOpenDetailsModal] = useState(false);
+
+  const handleOpenDetailsModal = () => {
+    setOpenDetailsModal(!openDetailsModal);
+  };
 
   return (
     <>
@@ -205,9 +211,7 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
             ))}
           </Box>
         </Box>
-        <CardActionArea
-        //onClick={handleOpenModal}
-        >
+        <CardActionArea onClick={handleOpenDetailsModal}>
           <CardMedia
             component="img"
             alt={title}
@@ -296,9 +300,11 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
           </Box>
         </Box>
       </MyModal>
-      <MyModal open={openModal} handleOpenModal={handleOpenModal}>
-        <div> Aca iria el menu</div>
-      </MyModal>
+      <AdvertDetailsModal
+        open={openDetailsModal}
+        handleOpen={handleOpenDetailsModal}
+        advert={advert}
+      />
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -358,7 +364,7 @@ function AdvertCard({ advert = {}, admin = false, publishArea = false }) {
           </>
         )}
       </Menu>
-      <DetailAdModal
+      <DetailAdminAdModal
         opened={openDetails}
         setOpened={handleOpenDetails}
         advert={advert}

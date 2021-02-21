@@ -24,7 +24,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import DetailsIcon from "@material-ui/icons/Details";
 import { useAds } from "../../context/adsContext";
-import DetailAdModal from "./DetailAdModal";
+import DetailAdminAdModal from "./DetailAdminAdModal";
 
 export default function AdvertManage({ advert = {} }) {
   const { title, description, isPublished, _id } = advert;
@@ -178,7 +178,7 @@ export default function AdvertManage({ advert = {} }) {
           </Box>
         </Box>
       </MyModal>
-      <DetailAdModal
+      <DetailAdminAdModal
         opened={openDetails}
         setOpened={handleOpenDetails}
         advert={advert}

@@ -23,7 +23,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import ToPublishAdvert from "./ToPublishAdvert";
 
-export default function DetailAdModal({ opened, setOpened, advert }) {
+export default function DetailAdminAdModal({ opened, setOpened, advert }) {
   const history = useHistory();
   const { refetchAllAds } = useAds();
   const { isPublished, _id } = advert;

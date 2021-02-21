@@ -1,8 +1,8 @@
 import MyModal from "../atomos/MyModal";
-import React, { useState } from "react";
+import React from "react";
 
 export default function AdvertDetailsModal({ open, handleOpen, advert }) {
-  console.log(advert)
+  console.log(advert);
   return (
     <>
       <MyModal

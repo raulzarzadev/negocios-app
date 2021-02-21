@@ -19,6 +19,15 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: "1px 1px 1px #000",
     },
   },
+  filter_display: {
+    background: "#fff",
+    width: "100px",
+    margin: "0 auto",
+    borderRadius: "50%",
+    fontSize: "1.2rem",
+    fontWeight:'600'
+    
+  },
 }));
 
 export default function Filtro({ handleSetFilter, labels }) {

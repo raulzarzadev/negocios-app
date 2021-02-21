@@ -41,12 +41,12 @@ export default function SearchInput() {
   const [searchResults, setSearchResults] = useState(null);
   useEffect(() => {
     getBarrios().then((res) => setBarrios(res.data.barrios));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {
     const searchTerm = e.target.value;
-    setInput(searchTerm);
+    setInput(searchTerm?.toLowerCase());
     if (searchTerm === "") return setSearchResults(null);
     const res = barrios.filter((barrio) =>
       barrio.name.toLowerCase().includes(searchTerm)
